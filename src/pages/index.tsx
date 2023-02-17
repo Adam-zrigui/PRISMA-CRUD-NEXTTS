@@ -3,6 +3,7 @@ import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import { useState } from 'react'
 import axios from 'axios'
+import { getUsers } from '@/components/controller'
 export default function Home() {
  const [name , setn] =  useState('')
  const [age , seta] =  useState<number>()

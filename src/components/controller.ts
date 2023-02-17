@@ -21,7 +21,6 @@ export async function createUser(user: any) {
         age: user.age,
         email: user.email,
         about: user?.about
-
       },
     });
     return { user: userFromDB };
