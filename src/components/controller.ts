@@ -28,3 +28,11 @@ export async function createUser(user: any) {
     return {error : error.message};
   }
 }
+export async function FindById(id : any)  {
+try {
+  const user = await prisma.user.findUnique({where : { id }})
+  return { user }
+} catch (error) {
+  return { error }
+}
+}

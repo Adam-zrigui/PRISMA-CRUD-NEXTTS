@@ -13,7 +13,8 @@ model Users {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   age Int 
   name String @unique
-  email String @unique
+  email String @unique 
   about String? 
 @@unique([email,name])   
+
 }

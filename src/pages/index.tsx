@@ -9,7 +9,6 @@ export default function Home() {
  const [age , seta] =  useState<number>()
  const [email , sete] =  useState('')
  const [desc , setd] =  useState('')
-
   return (
     <>
       <Head>
@@ -26,6 +25,10 @@ export default function Home() {
           email,
           about : desc
         })
+        seta(NaN)
+        setd('')
+        sete('')
+        setn('')
       }}>
         <label htmlFor="name">username
         <input type="text" id='name' onChange={(e) => setn(e.target.value)} required/>
@@ -37,7 +40,7 @@ export default function Home() {
         </label>   <label htmlFor="des">about you (optional)
         <input type="text" id='des' onChange={(e) => setd(e.target.value)} />
         </label>
-        <button type="submit" >sub</button>
+        <button type="submit">sub</button>
       </form>
     </>
   )
