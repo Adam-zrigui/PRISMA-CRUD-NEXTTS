@@ -14,6 +14,7 @@ model Users {
   age Int 
   name String @unique
   email String @unique 
+  image String @default("https://e7.pngegg.com/pngimages/981/645/png-clipart-default-profile-united-states-computer-icons-desktop-free-high-quality-person-icon-miscellaneous-silhouette-thumbnail.png")
   about String? 
 @@unique([email,name])   
 

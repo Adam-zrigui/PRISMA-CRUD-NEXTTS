@@ -46,11 +46,11 @@ background-size: cover;
    flex-direction: column;
 }
 .formWrap {
-    width: 30vw;
+    width: 28.5vw;
     background-color: rgb(29, 36, 36);
     display: flex;
     justify-content: flex-start;
-    height: 50vh;
+    height: 60vh;
     border-radius: 20px;
 }
 .label {
@@ -58,7 +58,8 @@ padding: 10px;
 font-weight: bold;
 }
 .input , .area{
-    margin: 15px  15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
     background: rgb(81, 72, 72);
     color: #fff;  
     outline: none;
@@ -70,7 +71,6 @@ font-weight: bold;
     height: 2.5vh;
 }
 .helper {
- 
     display: flex;
     justify-content: center;
 }
@@ -78,3 +78,27 @@ font-weight: bold;
     width: 25vw;
     height: 7vh;
 }
+.im::-webkit-file-upload-button {
+    visibility: hidden;
+  }
+  .im::before {
+    content: 'Select some files';
+    display: inline-block;
+    background: linear-gradient(from top, #f9f9f9, #e3e3e3);
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+  
+    cursor: pointer;
+    text-shadow: 1px 1px #fff;
+    font-weight: 700;
+    font-size: 10pt;
+  }
+  .im:hover::before {
+    border-color: black;
+  }
+  .im:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+  }

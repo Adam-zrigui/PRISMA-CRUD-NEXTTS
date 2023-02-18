@@ -5,17 +5,26 @@ import { useState } from 'react'
 import axios from 'axios'
 import { getUsers } from '@/components/controller'
 import Link from 'next/link'
-import { ToastContainer , toast } from 'react-toastify'
 
+import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+
 export default function Home() {
- const [name , setn] =  useState('')
- const [age , seta] =  useState('')
- const [email , sete] =  useState('')
- const [desc , setd] =  useState('')
- const [post , posted] = useState(false)
- 
- return (
+  const [name, setn] = useState('')
+  const [age, seta] = useState('')
+  const [email, sete] = useState('')
+  const [desc, setd] = useState('')
+  const [post, posted] = useState(false)
+  const [imageFile, setImageFile] = useState<File | null>(null)
+
+  // Handle the file input change event
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setImageFile(event.target.files[0])
+    }
+  }
+
+  return (
     <>
       <Head>
         <title>Prisma CRUD</title>
@@ -23,45 +32,104 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="favicon.ico" />
       </Head>
-      
+
       <div className={styles.view}>
-        <form method='POST' className={styles.form} onSubmit={(e) => {
-          e.preventDefault()
-          axios.post('/api/data', {
-            name,
-         age :  parseInt(age) ,
-            email,
-            about : desc
-          })
-          seta('')
-          setd('')
-          sete('')
-          setn('')
-          posted(true)
-        }}>
+        <form
+          method="POST"
+          className={styles.form}
+          onSubmit={(e) => {
+            e.preventDefault()
+            axios
+              .post('/api/data', {
+                name,
+                age: parseInt(age),
+                email,
+                about: desc,
+                image: JSON.stringify(imageFile),
+              })
+              .then(() => {
+                seta('')
+                setd('')
+                sete('')
+                setn('')
+                posted(true)
+                toast('User created successfully!', {
+                  position: 'bottom-right',
+                  style: { background: '#000', color: '#fff' },
+                })
+              })
+              .catch((err) => {
+                toast.error(err.response.data.message, {
+                  position: 'bottom-right',
+                  style: { background: '#000', color: '#fff' },
+                })
+              })
+          }}
+        >
           <div className={styles.formWrap}>
-            <label className={styles.label} htmlFor="name">username:
-           <br /> <input type="text" id='name' className={styles.input} onChange={(e) => setn(e.target.value)} required/>
+            <label className={styles.label} htmlFor="name">
+              username:
+              <br />{' '}
+              <input
+                type="text"
+                id="name"
+                className={styles.input}
+                onChange={(e) => setn(e.target.value)}
+                required
+              />
             </label>
-            <label className={styles.label} htmlFor="age">age:
-          <br /> <input type="text" pattern="[0-9]*" inputMode="numeric" min={12}  className={styles.input} onChange={(e) => seta(e.target.value)} id="age" required />
-            </label>   <label className={styles.label} htmlFor="name">email:
-           <br /> <input type="email"  className={styles.input} onChange={(e) => sete(e.target.value)} id="email" required />
-            </label>   <label className={styles.label} htmlFor="des">about you (optional):
-         <br />   <textarea cols={30} rows={5}  id='des' className={styles.area} onChange={(e) => setd(e.target.value)} />
+            <label className={styles.label} htmlFor="age">
+              age:
+              <br />{' '}
+              <input
+                type="text"
+                pattern="[0-9]*"
+                inputMode="numeric"
+                min={12}
+                className={styles.input}
+                onChange={(e) => seta(e.target.value)}
+                id="age"
+                required
+              />
             </label>
-            <div className={styles.helper}>
-        
-                {!post ? <button type="submit" className={styles.sub} onClick={() => toast("user created successfully!", {
-                  position: "bottom-right",
-                  style: {background: "#000", color: "#fff" }
-                })} disabled={!name || !age || !email}>sub</button> :  <Link href={'/pages'}><button className={styles.linker}>continue</button></Link>}
-        
-            </div>
-          </div>
-        </form>
-        <ToastContainer />
-      </div>
-    </>
-  )
+            <label className={styles.label} htmlFor="name">
+              email:
+              <br />
+              <input
+                type="email"
+                className={styles.input}
+                onChange={(e) => sete(e.target.value)}
+                id="email"
+                required
+              />
+            </label>
+            <label className={styles.label} htmlFor="des">
+              about you (optional):
+              <textarea
+                cols={30}
+                rows={5}
+                id="des"
+                className={styles.area}
+                onChange={(e) => setd(e.target.value)}
+              />
+            </label>
+            <label className={styles.label} htmlFor="img">
+              image url
+              <input
+    type="file"
+    className={`${styles.input} ${styles.im}`}
+    onChange={handleImageChange}
+    id="img"
+ 
+  />
+</label>
+</div>
+<button type="submit" className={styles.sub}>
+add user
+</button>
+</form>
+<ToastContainer />
+</div>
+</>
+)
 }
