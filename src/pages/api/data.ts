@@ -27,16 +27,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   res.setHeader('Allow', ['GET', 'POST']);
   res.status(425).end(`Method ${req.method} is not allowed.`);
 
-  const user = {
-    name: "John Doe",
-    age: 25,
-    email: "johndoe@example.com",
-    about: "I'm a software engineer",
-  };
+ 
   
-  const result = await createUser(user);
-  
-  console.log(result)
 }
 
 export default handler;

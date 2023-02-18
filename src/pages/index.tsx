@@ -4,12 +4,18 @@ import styles from '@/styles/Home.module.css'
 import { useState } from 'react'
 import axios from 'axios'
 import { getUsers } from '@/components/controller'
+import Link from 'next/link'
+import { ToastContainer , toast } from 'react-toastify'
+
+import 'react-toastify/dist/ReactToastify.css'
 export default function Home() {
  const [name , setn] =  useState('')
- const [age , seta] =  useState<number>()
+ const [age , seta] =  useState('')
  const [email , sete] =  useState('')
  const [desc , setd] =  useState('')
-  return (
+ const [post , posted] = useState(false)
+ 
+ return (
     <>
       <Head>
         <title>Prisma CRUD</title>
@@ -17,31 +23,45 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="favicon.ico" />
       </Head>
-      <form method='POST' onSubmit={(e) => {
-        e.preventDefault()
-        axios.post('/api/data', {
-          name,
-          age,
-          email,
-          about : desc
-        })
-        seta(NaN)
-        setd('')
-        sete('')
-        setn('')
-      }}>
-        <label htmlFor="name">username
-        <input type="text" id='name' onChange={(e) => setn(e.target.value)} required/>
-        </label>
-        <label htmlFor="age">age
-        <input type="number" min={12} onChange={(e) => seta(e.target.valueAsNumber)}  id='age' required/>
-        </label>   <label htmlFor="name">email
-        <input type="email" id='email' onChange={(e) => sete(e.target.value)} required />
-        </label>   <label htmlFor="des">about you (optional)
-        <input type="text" id='des' onChange={(e) => setd(e.target.value)} />
-        </label>
-        <button type="submit">sub</button>
-      </form>
+      
+      <div className={styles.view}>
+        <form method='POST' className={styles.form} onSubmit={(e) => {
+          e.preventDefault()
+          axios.post('/api/data', {
+            name,
+         age :  parseInt(age) ,
+            email,
+            about : desc
+          })
+          seta('')
+          setd('')
+          sete('')
+          setn('')
+          posted(true)
+        }}>
+          <div className={styles.formWrap}>
+            <label className={styles.label} htmlFor="name">username:
+           <br /> <input type="text" id='name' className={styles.input} onChange={(e) => setn(e.target.value)} required/>
+            </label>
+            <label className={styles.label} htmlFor="age">age:
+          <br /> <input type="text" pattern="[0-9]*" inputMode="numeric" min={12}  className={styles.input} onChange={(e) => seta(e.target.value)} id="age" required />
+            </label>   <label className={styles.label} htmlFor="name">email:
+           <br /> <input type="email"  className={styles.input} onChange={(e) => sete(e.target.value)} id="email" required />
+            </label>   <label className={styles.label} htmlFor="des">about you (optional):
+         <br />   <textarea cols={30} rows={5}  id='des' className={styles.area} onChange={(e) => setd(e.target.value)} />
+            </label>
+            <div className={styles.helper}>
+        
+                {!post ? <button type="submit" className={styles.sub} onClick={() => toast("user created successfully!", {
+                  position: "bottom-right",
+                  style: {background: "#000", color: "#fff" }
+                })} disabled={!name || !age || !email}>sub</button> :  <Link href={'/pages'}><button className={styles.linker}>continue</button></Link>}
+        
+            </div>
+          </div>
+        </form>
+        <ToastContainer />
+      </div>
     </>
   )
 }

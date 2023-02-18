@@ -16,17 +16,19 @@ export async function getServerSideProps() {
       },
     };
   }
-  interface User {
+  export interface User {
     name: string
     age: number
     email : string
     about: string
+    id: any,
   }
 export default function pages({users} : {users : User[]}) {
   return (
     <div>
         {users.map((user , key) => <li key={key}>
             <h1>{user.age}</h1>
+            <h3>{user.email}</h3>
         </li>)}
     </div>
   )

@@ -1,0 +1,80 @@
+.sub {
+    background: #06ba18;
+}
+.sub , .linker {
+    border:none;
+    color: #fff;
+    width: 10vw;
+    height: 3vh;
+    border-radius: 10px;
+}
+.linker {
+    background: #350471;
+}
+.view {
+    background-image: url("https://wallpaperaccess.com/full/2314983.jpg");
+    -webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+.sub:hover {
+    background: #079a16;
+}
+.sub:focus {
+    background: #086c12;
+}
+.linker:hover {
+    background: #1d0b61;
+}
+.linker:focus {
+    background: #1e0446;
+}
+.sub:disabled {
+    background: #4aff5c;
+    cursor:not-allowed;
+}
+.form {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form , .formWrap {
+    display: flex;
+    /* flex-flow: column wrap; */
+   flex-direction: column;
+}
+.formWrap {
+    width: 30vw;
+    background-color: rgb(29, 36, 36);
+    display: flex;
+    justify-content: flex-start;
+    height: 50vh;
+    border-radius: 20px;
+}
+.label {
+padding: 10px;
+font-weight: bold;
+}
+.input , .area{
+    margin: 15px  15px;
+    background: rgb(81, 72, 72);
+    color: #fff;  
+    outline: none;
+    border: none;
+    border-radius: 3px;
+}
+.input {
+    width: 25vw;
+    height: 2.5vh;
+}
+.helper {
+ 
+    display: flex;
+    justify-content: center;
+}
+.area {
+    width: 25vw;
+    height: 7vh;
+}
